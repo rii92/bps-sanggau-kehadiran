@@ -14,7 +14,7 @@ const Navbar = () => {
           </div>
           
           <div className="flex space-x-4">
-            <Link
+            {/* <Link
               to="/strategis"
               className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${
                 location.pathname === '/'
@@ -24,7 +24,7 @@ const Navbar = () => {
             >
               <Users className="w-4 h-4 mr-2" />
               Populasi
-            </Link>
+            </Link> */}
             
             <Link
               to="/attendance"
