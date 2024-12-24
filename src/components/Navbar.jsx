@@ -14,22 +14,22 @@ const Navbar = () => {
           </div>
           
           <div className="flex space-x-4">
-            {/* <Link
+            <Link
               to="/strategis"
               className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${
-                location.pathname === '/'
+                location.pathname === '/strategis'
                   ? 'bg-blue-500 text-white'
                   : 'text-gray-700 hover:bg-blue-50'
               }`}
             >
               <Users className="w-4 h-4 mr-2" />
               Populasi
-            </Link> */}
+            </Link>
             
             <Link
-              to="/attendance"
+              to="/"
               className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${
-                location.pathname === '/attendance'
+                location.pathname === '/'
                   ? 'bg-blue-500 text-white'
                   : 'text-gray-700 hover:bg-blue-50'
               }`}
