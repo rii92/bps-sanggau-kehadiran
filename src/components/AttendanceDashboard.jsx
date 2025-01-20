@@ -22,6 +22,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import YearlyAverages from "./YearlyAverages";
 
 // Komponen Badge untuk menampilkan nama pegawai terpilih
 const EmployeeBadge = ({ name, onRemove }) => (
@@ -190,28 +191,39 @@ const AttendanceDashboard = () => {
 
   // Mapping bulan untuk konversi dan pengurutan
   const monthMapping = {
-    'Januari': '01',
-    'Februari': '02',
-    'Maret': '03',
-    'April': '04',
-    'Mei': '05',
-    'Juni': '06',
-    'Juli': '07',
-    'Agustus': '08',
-    'September': '09',
-    'Oktober': '10',
-    'November': '11',
-    'Desember': '12'
+    Januari: "01",
+    Februari: "02",
+    Maret: "03",
+    April: "04",
+    Mei: "05",
+    Juni: "06",
+    Juli: "07",
+    Agustus: "08",
+    September: "09",
+    Oktober: "10",
+    November: "11",
+    Desember: "12",
   };
 
   // Attendance type groups
   const attendanceGroups = {
-    'Kehadiran Dasar': ['HK', 'HD'],
-    'Ketidakhadiran': ['TK', 'TL', 'TB', 'PD', 'DK', 'KN'],
-    'Pulang Sebelum Waktu': ['PSW', 'PSW1', 'PSW2', 'PSW3', 'PSW4'],
-    'Keterlambatan': ['HT', 'TL1', 'TL2', 'TL3', 'TL4'],
-    'Cuti': ['CB', 'CL', 'CM', 'CP', 'CS', 'CT 10', 'CT 11', 'CT 12', 'CST1', 'CST2'],
-    'Kekurangan Jam Kerja': ['KJK HT', 'KJK PSW', 'KJK', 'KJK Hari']
+    "Kehadiran Dasar": ["HK", "HD"],
+    Ketidakhadiran: ["TK", "TL", "TB", "PD", "DK", "KN"],
+    "Pulang Sebelum Waktu": ["PSW", "PSW1", "PSW2", "PSW3", "PSW4"],
+    Keterlambatan: ["HT", "TL1", "TL2", "TL3", "TL4"],
+    Cuti: [
+      "CB",
+      "CL",
+      "CM",
+      "CP",
+      "CS",
+      "CT 10",
+      "CT 11",
+      "CT 12",
+      "CST1",
+      "CST2",
+    ],
+    "Kekurangan Jam Kerja": ["KJK HT", "KJK PSW", "KJK", "KJK Hari"],
   };
 
   // Effect untuk fetch data
@@ -266,48 +278,188 @@ const AttendanceDashboard = () => {
         })),
       types: [
         // Base attendance
-        { value: "HK", label: "Hari Kerja dalam 1 bulan", color: "#4ade80", group: "Kehadiran Dasar" },
-        { value: "HD", label: "Hadir dalam 1 bulan", color: "#3b82f6", group: "Kehadiran Dasar" },
-        
+        {
+          value: "HK",
+          label: "Hari Kerja dalam 1 bulan",
+          color: "#4ade80",
+          group: "Kehadiran Dasar",
+        },
+        {
+          value: "HD",
+          label: "Hadir dalam 1 bulan",
+          color: "#3b82f6",
+          group: "Kehadiran Dasar",
+        },
+
         // Absence types
-        { value: "TK", label: "Tanpa Kabar", color: "#ef4444", group: "Ketidakhadiran" },
-        { value: "TL", label: "Tugas Luar", color: "#f59e0b", group: "Ketidakhadiran" },
-        { value: "TB", label: "Tugas Belajar", color: "#a855f7", group: "Ketidakhadiran" },
-        { value: "PD", label: "Perjalanan Dinas", color: "#f97316", group: "Ketidakhadiran" },
-        { value: "DK", label: "Diklat/Pelatihan", color: "#ec4899", group: "Ketidakhadiran" },
-        { value: "KN", label: "Konsinyasi", color: "#10b981", group: "Ketidakhadiran" },
-        
+        {
+          value: "TK",
+          label: "Tanpa Kabar",
+          color: "#ef4444",
+          group: "Ketidakhadiran",
+        },
+        {
+          value: "TL",
+          label: "Tugas Luar",
+          color: "#f59e0b",
+          group: "Ketidakhadiran",
+        },
+        {
+          value: "TB",
+          label: "Tugas Belajar",
+          color: "#a855f7",
+          group: "Ketidakhadiran",
+        },
+        {
+          value: "PD",
+          label: "Perjalanan Dinas",
+          color: "#f97316",
+          group: "Ketidakhadiran",
+        },
+        {
+          value: "DK",
+          label: "Diklat/Pelatihan",
+          color: "#ec4899",
+          group: "Ketidakhadiran",
+        },
+        {
+          value: "KN",
+          label: "Konsinyasi",
+          color: "#10b981",
+          group: "Ketidakhadiran",
+        },
+
         // Early leave
-        { value: "PSW", label: "Pulang Sebelum Waktu", color: "#10b981", group: "Pulang Sebelum Waktu" },
-        { value: "PSW1", label: "PSW <= 30 menit", color: "#22c55e", group: "Pulang Sebelum Waktu" },
-        { value: "PSW2", label: "PSW 30 - 60 menit", color: "#16a34a", group: "Pulang Sebelum Waktu" },
-        { value: "PSW3", label: "PSW 60 - 90 menit", color: "#15803d", group: "Pulang Sebelum Waktu" },
-        { value: "PSW4", label: "PSW > 90 menit", color: "#166534", group: "Pulang Sebelum Waktu" },
-        
+        {
+          value: "PSW",
+          label: "Pulang Sebelum Waktu",
+          color: "#10b981",
+          group: "Pulang Sebelum Waktu",
+        },
+        {
+          value: "PSW1",
+          label: "PSW <= 30 menit",
+          color: "#22c55e",
+          group: "Pulang Sebelum Waktu",
+        },
+        {
+          value: "PSW2",
+          label: "PSW 30 - 60 menit",
+          color: "#16a34a",
+          group: "Pulang Sebelum Waktu",
+        },
+        {
+          value: "PSW3",
+          label: "PSW 60 - 90 menit",
+          color: "#15803d",
+          group: "Pulang Sebelum Waktu",
+        },
+        {
+          value: "PSW4",
+          label: "PSW > 90 menit",
+          color: "#166534",
+          group: "Pulang Sebelum Waktu",
+        },
+
         // Late arrival
-        { value: "HT", label: "Hadir Terlambat", color: "#8b5cf6", group: "Keterlambatan" },
-        { value: "TL1", label: "Terlambat <= 30 menit", color: "#fcd34d", group: "Keterlambatan" },
-        { value: "TL2", label: "Terlambat 30-60 menit", color: "#fbbf24", group: "Keterlambatan" },
-        { value: "TL3", label: "Terlambat 60-90 menit", color: "#f59e0b", group: "Keterlambatan" },
-        { value: "TL4", label: "Terlambat > 90 menit", color: "#d97706", group: "Keterlambatan" },
-        
+        {
+          value: "HT",
+          label: "Hadir Terlambat",
+          color: "#8b5cf6",
+          group: "Keterlambatan",
+        },
+        {
+          value: "TL1",
+          label: "Terlambat <= 30 menit",
+          color: "#fcd34d",
+          group: "Keterlambatan",
+        },
+        {
+          value: "TL2",
+          label: "Terlambat 30-60 menit",
+          color: "#fbbf24",
+          group: "Keterlambatan",
+        },
+        {
+          value: "TL3",
+          label: "Terlambat 60-90 menit",
+          color: "#f59e0b",
+          group: "Keterlambatan",
+        },
+        {
+          value: "TL4",
+          label: "Terlambat > 90 menit",
+          color: "#d97706",
+          group: "Keterlambatan",
+        },
+
         // Leave types
         { value: "CB", label: "Cuti Besar", color: "#3b82f6", group: "Cuti" },
         { value: "CL", label: "Cuti LTN", color: "#e879f9", group: "Cuti" },
-        { value: "CM", label: "Cuti Melahirkan", color: "#f472b6", group: "Cuti" },
+        {
+          value: "CM",
+          label: "Cuti Melahirkan",
+          color: "#f472b6",
+          group: "Cuti",
+        },
         { value: "CP", label: "Cuti Penting", color: "#14b8a6", group: "Cuti" },
         { value: "CS", label: "Cuti Sakit", color: "#6366f1", group: "Cuti" },
-        { value: "CT 10", label: "Cuti 2 Tahun Lalu", color: "#16a34a", group: "Cuti" },
-        { value: "CT 11", label: "Cuti Tahun Sekarang", color: "#0284c7", group: "Cuti" },
-        { value: "CT 12", label: "Cuti Tahun Lalu", color: "#7c3aed", group: "Cuti" },
-        { value: "CST1", label: "Cuti Sakit 1", color: "#dc2626", group: "Cuti" },
-        { value: "CST2", label: "Cuti Sakit 2", color: "#ea580c", group: "Cuti" },
-        
+        {
+          value: "CT 10",
+          label: "Cuti 2 Tahun Lalu",
+          color: "#16a34a",
+          group: "Cuti",
+        },
+        {
+          value: "CT 11",
+          label: "Cuti Tahun Sekarang",
+          color: "#0284c7",
+          group: "Cuti",
+        },
+        {
+          value: "CT 12",
+          label: "Cuti Tahun Lalu",
+          color: "#7c3aed",
+          group: "Cuti",
+        },
+        {
+          value: "CST1",
+          label: "Cuti Sakit 1",
+          color: "#dc2626",
+          group: "Cuti",
+        },
+        {
+          value: "CST2",
+          label: "Cuti Sakit 2",
+          color: "#ea580c",
+          group: "Cuti",
+        },
+
         // Work hours shortage
-        { value: "KJK HT", label: "KJK Hadir Terlambat", color: "#0ea5e9", group: "Kekurangan Jam Kerja" },
-        { value: "KJK PSW", label: "KJK Pulang Awal", color: "#a21caf", group: "Kekurangan Jam Kerja" },
-        { value: "KJK", label: "Total KJK", color: "#d946ef", group: "Kekurangan Jam Kerja" },
-        { value: "KJK Hari", label: "KJK (Hari)", color: "#9333ea", group: "Kekurangan Jam Kerja" },
+        {
+          value: "KJK HT",
+          label: "KJK Hadir Terlambat",
+          color: "#0ea5e9",
+          group: "Kekurangan Jam Kerja",
+        },
+        {
+          value: "KJK PSW",
+          label: "KJK Pulang Awal",
+          color: "#a21caf",
+          group: "Kekurangan Jam Kerja",
+        },
+        {
+          value: "KJK",
+          label: "Total KJK",
+          color: "#d946ef",
+          group: "Kekurangan Jam Kerja",
+        },
+        {
+          value: "KJK Hari",
+          label: "KJK (Hari)",
+          color: "#9333ea",
+          group: "Kekurangan Jam Kerja",
+        },
       ].sort((a, b) => {
         if (a.group !== b.group) return a.group.localeCompare(b.group);
         return a.label.localeCompare(b.label);
@@ -318,7 +470,11 @@ const AttendanceDashboard = () => {
 
   // Color mapping
   const typeColors = useMemo(
-    () => options.types.reduce((acc, type) => ({ ...acc, [type.value]: type.color }), {}),
+    () =>
+      options.types.reduce(
+        (acc, type) => ({ ...acc, [type.value]: type.color }),
+        {}
+      ),
     [options.types]
   );
 
@@ -358,17 +514,25 @@ const AttendanceDashboard = () => {
         <div className="container px-4 py-4 mx-auto max-w-7xl">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="p-2 bg-blue-500 rounded-lg">
-                <Table className="w-6 h-6 text-white" />
+              <div className="items-center hidden gap-2 md:flex">
+                <img
+                  src="images/otw@2x.png"
+                  alt="Logo"
+                  className="h-8 md:h-10"
+                />
               </div>
-              <h1 className="text-xl font-bold text-gray-900 md:text-2xl">
-                Dashboard Kehadiran Pegawai
-              </h1>
             </div>
+            <h1 className="text-xl font-bold text-gray-900 md:text-2xl">
+              Dashboard Kehadiran Pegawai
+            </h1>
             <div className="items-center hidden gap-2 md:flex">
-                <img src="bps-sanggau-kehadiran/images/bps.png" alt="Logo" className="h-8 md:h-10" />
-                <span className="text-sm font-semibold md:text-lg">Kabupaten Sanggau</span>
-              </div>
+              {/* <img src="images/bps.png" alt="Logo" className="h-8 md:h-10" /> */}
+              <img
+                src="images/bpssanggau.png"
+                alt="Logo"
+                className="h-8 md:h-10"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -492,6 +656,14 @@ const AttendanceDashboard = () => {
             </ResponsiveContainer>
           </div>
         </div>
+
+        <YearlyAverages
+          data={filteredData}
+          selectedTypes={selectedTypes}
+          typeColors={typeColors}
+          options={options}
+          selectedEmployees={selectedEmployees}
+        />
 
         {/* Legend and Info */}
         <div className="grid gap-6 md:grid-cols-2">
